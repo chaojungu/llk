@@ -1,16 +1,25 @@
 package com.example.lianlinakan.modles;
 
-import com.example.lianlinakan.service.GameService;
-import com.example.lianlinakan.util.ImageUtil;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.lianlinakan.service.GameService;
+import com.example.lianlinakan.util.ImageUtil;
+
+/**
+ * 游戏视图 负责游戏界面的重绘
+ * 
+ * @author Administrator
+ * 
+ */
 public class GameView extends View {
 
 	/**
@@ -55,7 +64,7 @@ public class GameView extends View {
 	}
 
 	/**
-	 * 在view的重绘事件中
+	 * view的重绘事件 从游戏逻辑类中获取游戏数据并绘制
 	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -78,15 +87,30 @@ public class GameView extends View {
 				}
 			}
 		}
-		//如果有连接点信息，在当前画布上画连接线
-		if (linkPoint!= null) {
-			drawLine(this.linkPoint,canvas);
+		// 如果有连接点信息，在当前画布上画连接线
+		if (linkPoint != null) {
+			drawLine(this.linkPoint, canvas);
+			// 绘制后清空原有的的连接点信息
+			linkPoint = null;
 		}
+		// 如果有选中的的图片，在选中的图像上画选中标识
+		if (this.selectImage != null) {
+			canvas.drawBitmap(this.selectImage, this.selectedPiece.getBeginX(),
+					this.selectedPiece.getBeginY(), null);
+		}
+
 	}
 
 	private void drawLine(LinkInfo linkPoint2, Canvas canvas) {
-		// TODO Auto-generated method stub
-		
+		//获取连接信息对象中的具体连接点
+		List<Point> points = linkPoint2.getLinkPoints();
+		//遍历连接点并绘制线条
+		int size=points.size();
+		for (int i = 0; i < size-1; i++) {
+			Point current=points.get(i);
+			Point next=points.get(i+1);
+			canvas.drawLine(current.x, current.y, next.x, next.y, this.paint);
+		}
 	}
 
 }
