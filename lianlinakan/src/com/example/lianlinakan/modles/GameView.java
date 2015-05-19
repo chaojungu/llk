@@ -62,7 +62,11 @@ public class GameView extends View {
 	public void setGameService(GameService gameService) {
 		this.gameService = gameService;
 	}
-
+	
+	public void setSelectedPiece(Piece selectedPiece) {
+		this.selectedPiece = selectedPiece;
+	}
+	
 	/**
 	 * view的重绘事件 从游戏逻辑类中获取游戏数据并绘制
 	 */
@@ -101,6 +105,11 @@ public class GameView extends View {
 
 	}
 
+	/**
+	 * 根据给定的点信息进行画线
+	 * @param linkPoint2
+	 * @param canvas
+	 */
 	private void drawLine(LinkInfo linkPoint2, Canvas canvas) {
 		//获取连接信息对象中的具体连接点
 		List<Point> points = linkPoint2.getLinkPoints();
@@ -113,4 +122,12 @@ public class GameView extends View {
 		}
 	}
 
+	/**
+	 * 开始游戏
+	 */
+	public void startGame() {
+		this.gameService.start();
+		this.postInvalidate();
+
+	}
 }

@@ -43,4 +43,10 @@ public class ImageUtil {
 		return null;
 	}
 
+	public static List<PieceImage> getPalyImages(
+			Context context, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
