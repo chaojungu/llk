@@ -4,6 +4,9 @@ import android.content.Context;
 
 public class GameConfig {
 
+	public static final int PIECE_WIDTH = 0;
+	public static final int PIECE_Height = 0;
+
 	public int getXSize() {
 		// TODO Auto-generated method stub
 		return 0;
